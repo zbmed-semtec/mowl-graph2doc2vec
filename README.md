@@ -23,6 +23,7 @@ A repository to explore the use of ontology-based graphs (generated with MOWL) a
 
 ## Limitations
 * We are not properly capturing relations between two recognized entities from the document text.
+* Some biologically relevant entities, see P53 in the example, are not part of the MeSH vocabulary (however this approach is for a recommendation system and not for a specific biological task so might still be ok).
 
 ## Ideas for the future
 * Explore Named Entity Recognition approaches other than simple/direct lexical matching.
