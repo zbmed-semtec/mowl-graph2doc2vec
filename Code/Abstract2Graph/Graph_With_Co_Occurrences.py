@@ -36,47 +36,46 @@ def filterGraph():
 
 
 def count(sentence):
-    meshInSentence = re.findall("MeSH[A-Z]+[0-9]+", sentence)
-    #If the same concept appears 2 times does that imply the co occurrence should be higher?
-    for i in range(len(meshInSentence)):
-        for j in range(i+1,len(meshInSentence)):
-            meshTerm1 = meshInSentence[i] 
-            meshTerm2 = meshInSentence[j]
+    
+    if(type(sentence)==str):
+        meshInSentence = re.findall("MeSH[A-Z]+[0-9]+", sentence)
+        #If the same concept appears 2 times does that imply the co occurrence should be higher?
+        for i in range(len(meshInSentence)):
+            for j in range(i+1,len(meshInSentence)):
+                meshTerm1 = meshInSentence[i] 
+                meshTerm2 = meshInSentence[j]
 
-            unique_nodes.add(meshTerm1)
-            unique_nodes.add(meshTerm2)
-            #making sure no double counting occurs.
-            if(meshTerm1>meshTerm2):
-                meshTerm2 = meshInSentence[i] 
-                meshTerm1 = meshInSentence[j] 
-            
-            if(meshTerm1 != meshTerm2):
-                key = meshTerm1 + " " + meshTerm2
-                if(key in occurrence_graph.keys()):
-                    occurrence_graph[key] += 1
-                else:
-                    occurrence_graph[key] = 1
+                unique_nodes.add(meshTerm1)
+                unique_nodes.add(meshTerm2)
+                #making sure no double counting occurs.
+                if(meshTerm1>meshTerm2):
+                    meshTerm2 = meshInSentence[i] 
+                    meshTerm1 = meshInSentence[j] 
+                
+                if(meshTerm1 != meshTerm2):
+                    key = meshTerm1 + " " + meshTerm2
+                    if(key in occurrence_graph.keys()):
+                        occurrence_graph[key] += 1
+                    else:
+                        occurrence_graph[key] = 1
 
 
 def main():
     df = pd.read_table('../../Data/Input/RELISH_documents_20220628_ann.tsv')
     df.columns = ['PMID', 'title', 'abstract']
-    i=10
     for index, row in df.iterrows():
         occurrence_graph.clear()
         unique_nodes.clear()
         
         #print(row['title'])
         count(row['title'])
-        for sentence in row['abstract'].split("."):
-            count(sentence)
+        if(type(row['abstract'])==str):
+            for sentence in row['abstract'].split("."):
+                count(sentence)
         
 
         filtered_occurrence_graph = filterGraph()
         all_occurrence_graphs[row['PMID']] = filtered_occurrence_graph
-
-        i-=1
-        if(i==0): break
 
     with open("../../Data/Output/Abstract2Graph_Co_Occurrence.json", "w") as fp:
         json.dump(all_occurrence_graphs,fp,indent = 2) 
