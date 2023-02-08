@@ -42,6 +42,12 @@ A repository to explore the use of ontology-based graphs (generated with MOWL) a
 * Day 1: Formation of the team, discussion on the approach, distribution of initial tasks. 
   * Task 1: Asmaa, Rahaf, Layan, Maria
   * Task 2: Nelson
+* Day 2
+  * Task 1 done, using the KAUST cloud, output saved in a pkl file, too big to be used locally
+  * Task 2: MeSH terms extracted to a JSON file using the PMID as key for each article, invlufinh the co-occurrence count. 
+  * Task 3: Maria and Rahaf. From the MeSH graph created in Task 1, use a graph embedding algorithm to obtain the graph embeddings, each concept will be assigned a vector
+  * Task 4a: Layan and Maria. Define and implement a strategy to get all the concept embeddings for a document and move to document embeddings. Once the MeSH graph embeddings are ready, apply to the actual data.
+  * Task 4b: Nelson. Define and implement a strategy to create mini-graphs out the concepts identified in each document and the MeSH graph embeddings.
 
 
 # Acknowledgments
