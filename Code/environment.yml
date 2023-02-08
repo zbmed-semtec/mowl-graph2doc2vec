@@ -1,0 +1,6 @@
+name: graph2doc2vec_env
+dependencies:
+  - numpy
+  - pandas
+  - nltk
+  - SciPy
