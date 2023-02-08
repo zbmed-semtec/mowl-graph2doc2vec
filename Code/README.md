@@ -27,7 +27,4 @@ In case updates have been preformed on the environment.yml file you need to upda
 conda env update graph2doc2vec_env --file environment.yml --prune
 ```
 
-
-
-
-*Graph_With_Cooccurrences: The algorithm generates links between 2 MESH concepts in a paragraph based on how many times the 2 terms appear in a sentence. Then an edge between the x% of the most coocurrent pairs is made.
+Remember to download the RELISH_documents_20220628_ann.tsv dataset and ubicated in the /Data/Input folder. 

@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 
 #tsv datasets
-.tsv
+Data/Input/*
+Data/Output/*
