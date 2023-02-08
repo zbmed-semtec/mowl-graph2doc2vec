@@ -1,8 +1,0 @@
-pandas
-numpy
-cython
-rdflib
-owlready2
-biopython
-nltk
-SciPy
