@@ -22,9 +22,11 @@ def checkTypeofRelations(graph):
                 relations[rel] = 1
             else:
                 relations[rel] += 1
-    
-    for k in relations.items():
-        print(k)
+    sum = 0
+    for k,v in relations.items():
+        sum+= v
+        print(k,v)
+    print(sum)
 
 def add_edge(adj, src, dest):
     adj[src].append(dest) 
@@ -121,8 +123,8 @@ def main():
     # big_G = format_Big(Onto_graph_raw)
     #The problem is not the reading.
     checkTypeofRelations(Onto_graph_raw)
-    big_G = format_Big(Onto_graph_raw)
-    small_Gs = format_Small(Abstract_Graph_raw)
+    #big_G = format_Big(Onto_graph_raw)
+    #small_Gs = format_Small(Abstract_Graph_raw)
 
 
 main()

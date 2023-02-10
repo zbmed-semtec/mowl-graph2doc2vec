@@ -1,10 +1,6 @@
 """
-Here we are creating new graphs by doing traversals through the MeSH ontology projected graph, 
-the traversal consists of finding the smallest path between 2 nodes that have an edge 
-in the initial graph that represents an abstract, we collect all the unique nodes that appear in all the path traversals
-and that  basically represents our new graph for an abstract.
+Here we optimize the algorithm not taking into account repeated nodes.
 """
- 
 
 import json
 import pickle
@@ -52,7 +48,7 @@ def format_Big(raw_graph):
     for section in raw_graph:
         v+=len(section)
 
-    new_G = [[] for i in range(v)]
+    new_G = [set() for i in range(v)]
 
     for section in raw_graph:
         for edge in section:
@@ -62,11 +58,17 @@ def format_Big(raw_graph):
             dst = edge.dst.split("/")[-1]
             add_edge(new_G,getIdx(src),getIdx(dst))
 
-    return new_G
+    out_G = [[] for i in range(v)]
+    
+    for id in range(v):
+        for elem in new_G[id]:
+            out_G[id].append(elem)
+    
+    return out_G
 
 def add_edge(adj, src, dest):
-    adj[src].append(dest) 
-    adj[dest].append(src) 
+    adj[src].add(dest) 
+    adj[dest].add(src) 
 
 
 def BFS(adj, src, dest, v, pred, dist):
@@ -76,7 +78,7 @@ def BFS(adj, src, dest, v, pred, dist):
     visited = [False for i in range(v)]  
     
     for i in range(v):
-        dist[i] = 1000000
+        dist[i] = 100000000
         pred[i] = -1  
     
     visited[src] = True  
@@ -208,7 +210,7 @@ def main():
     #print(enriched_Gs)
     print(avrg//len(enriched_Gs))
     
-    with open("../../Data/Output/Enriched_Graphs_v1.json", "w") as fp:
+    with open("../../Data/Output/Enriched_Graphs_v2.json", "w") as fp:
         json.dump(enriched_Gs,fp,indent = 2) 
     
 

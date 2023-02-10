@@ -1,15 +1,12 @@
 """
-Here we are creating new graphs by doing traversals through the MeSH ontology projected graph, 
-the traversal consists of finding the smallest path between 2 nodes that have an edge 
-in the initial graph that represents an abstract, we collect all the unique nodes that appear in all the path traversals
-and that  basically represents our new graph for an abstract.
+Here we take into account the weighted nodes of the based on the amount of time they were visited.
 """
- 
 
 import json
 import pickle
 import mowl
 mowl.init_jvm("4g")
+
 
 id2idx = {}
 idx_ref = -1
@@ -52,7 +49,7 @@ def format_Big(raw_graph):
     for section in raw_graph:
         v+=len(section)
 
-    new_G = [[] for i in range(v)]
+    new_G = [set() for i in range(v)]
 
     for section in raw_graph:
         for edge in section:
@@ -62,21 +59,28 @@ def format_Big(raw_graph):
             dst = edge.dst.split("/")[-1]
             add_edge(new_G,getIdx(src),getIdx(dst))
 
-    return new_G
+    out_G = [[] for i in range(v)]
+    
+    for id in range(v):
+        for elem in new_G[id]:
+            out_G[id].append(elem)
+    
+    return out_G
 
 def add_edge(adj, src, dest):
-    adj[src].append(dest) 
-    adj[dest].append(src) 
+    adj[src].add(dest) 
+    adj[dest].add(src) 
 
 
 def BFS(adj, src, dest, v, pred, dist):
 
     queue = []
 
-    visited = [False for i in range(v)]  
+    visited = [False for i in range(v)]
+    
     
     for i in range(v):
-        dist[i] = 1000000
+        dist[i] = 100000000
         pred[i] = -1  
     
     visited[src] = True  
@@ -153,7 +157,7 @@ def format_Small(raw_graph):
     return graphs
 
 def enrich_graph(graph):
-    new_node_list = set()
+    new_nodes = {}
     
     #print(graph)
     
@@ -162,9 +166,12 @@ def enrich_graph(graph):
         dest = edge[1]
         list = getShortestDistance(big_G, source, dest, idx_ref+1)
         for node in list:
-            new_node_list.add(node)
+            if(node in new_nodes):
+                new_nodes[node] += 1
+            else:
+                new_nodes[node] = 1
     
-    return [id2idx[x] for x in new_node_list]
+    return [{id2idx[k]:v} for k,v in new_nodes.items()]
     
 
 def main():
@@ -208,7 +215,7 @@ def main():
     #print(enriched_Gs)
     print(avrg//len(enriched_Gs))
     
-    with open("../../Data/Output/Enriched_Graphs_v1.json", "w") as fp:
+    with open("../../Data/Output/Enriched_Graphs_v3.json", "w") as fp:
         json.dump(enriched_Gs,fp,indent = 2) 
     
 
