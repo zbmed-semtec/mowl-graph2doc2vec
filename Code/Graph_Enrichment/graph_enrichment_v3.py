@@ -1,7 +1,7 @@
 """
 Here we take into account the weighted nodes of the based on the amount of time they were visited.
 """
-
+import timeit
 import json
 import pickle
 import mowl
@@ -210,7 +210,7 @@ def main():
         if("owl#Thing" in enriched_Gs[k]): enriched_Gs[k].remove("owl#Thing")
         avrg += len(enriched_Gs[k])
         i+=1
-        if(i==100):break
+        if(i==10):break
 
     #print(enriched_Gs)
     print(avrg//len(enriched_Gs))
@@ -218,5 +218,8 @@ def main():
     with open("../../Data/Output/Enriched_Graphs_v3.json", "w") as fp:
         json.dump(enriched_Gs,fp,indent = 2) 
     
-
+t_0 = timeit.default_timer()
 main()
+t_1 = timeit.default_timer()
+elapsed_time = round((t_1 - t_0), 3)
+print(f"Elapsed time: {elapsed_time}")
