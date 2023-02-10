@@ -35,8 +35,6 @@ def getIdx(id):
         id2idx[id] = idx_ref
         id2idx[idx_ref] = id
         
-        # if(id == "C047330"): 
-        #     print("LOOOOOOOOOOOOOOOOOOOOOL")
         
         return idx_ref
 
@@ -54,8 +52,7 @@ def format_Big(raw_graph):
             src = edge.src.split("/")[-1]
             rel = edge.rel.split("/")[-1]
             dst = edge.dst.split("/")[-1]
-            if(rel == "subclassof"):
-                add_edge(new_G,getIdx(src),getIdx(dst))
+            add_edge(new_G,getIdx(src),getIdx(dst))
 
     return new_G
 
@@ -140,12 +137,11 @@ def format_Small(raw_graph):
             else:
                 if(e1 not in id2idx): lost.add(e1)
                 if(e2 not in id2idx): lost.add(e2)
+                
         graphs[k] = temp_G
-
-    # print("Not found: ",lost)    
-    # print("Not found: ",len(lost))    
-    # print()
-
+    
+    with open("../../Data/Output/Lost_terms.json", "w") as fp:
+        json.dump([x for x in lost],fp,indent = 2)
     return graphs
 
 def enrich_graph(graph):
@@ -160,9 +156,6 @@ def enrich_graph(graph):
         for node in list:
             new_node_list.add(node)
     
-    #print(len(new_node_list))
-    #new_node_list.remove("owl#Thing")
-    
     return [id2idx[x] for x in new_node_list]
     
 
@@ -174,7 +167,7 @@ def main():
     #     Onto_graph_raw = pickle.load(f)
 
     Onto_graph_raw = []
-    with (open("../../Data/Input/Graph_mesh.pkl", "rb")) as openfile:
+    with (open("../../Data/Input/Graph_mesh_OWL2VEC.pkl", "rb")) as openfile:
         while True:
             try:
                 Onto_graph_raw.append(pickle.load(openfile))
@@ -204,15 +197,11 @@ def main():
         i+=1
         if(i==1000):break
 
-    print(enriched_Gs)
+    #print(enriched_Gs)
     print(avrg//len(enriched_Gs))
     
     with open("../../Data/Output/Enriched_Graphs.json", "w") as fp:
         json.dump(enriched_Gs,fp,indent = 2) 
-    # source = 0
-    # dest = 7
-    # print(id2idx[source])
-    # print(id2idx[dest])
-    # getShortestDistance(big_G, source, dest, len(big_G)+1)
+    
 
 main()
