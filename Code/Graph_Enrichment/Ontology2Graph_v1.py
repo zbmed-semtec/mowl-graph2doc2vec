@@ -195,13 +195,20 @@ def main():
     
     avrg = 0
     
+    i = 0
+    
     for k in small_Gs:
         enriched_Gs[k] = enrich_graph(small_Gs[k])
         if("owl#Thing" in enriched_Gs[k]): enriched_Gs[k].remove("owl#Thing")
         avrg += len(enriched_Gs[k])
+        i+=1
+        if(i==1000):break
 
     print(enriched_Gs)
     print(avrg//len(enriched_Gs))
+    
+    with open("../../Data/Output/Enriched_Graphs.json", "w") as fp:
+        json.dump(enriched_Gs,fp,indent = 2) 
     # source = 0
     # dest = 7
     # print(id2idx[source])
