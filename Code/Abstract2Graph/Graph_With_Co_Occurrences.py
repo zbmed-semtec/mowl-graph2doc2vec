@@ -63,9 +63,13 @@ def count(sentence):
 def main():
     df = pd.read_table('../../Data/Input/RELISH_documents_20220628_ann.tsv')
     df.columns = ['PMID', 'title', 'abstract']
+    avrg_nodes = 0
+    num_art = 0
     for index, row in df.iterrows():
         occurrence_graph.clear()
         unique_nodes.clear()
+        
+        num_art+=1
         
         #print(row['title'])
         count(row['title'])
@@ -73,13 +77,16 @@ def main():
             for sentence in row['abstract'].split("."):
                 count(sentence)
         
+        avrg_nodes+=len(unique_nodes)
+
 
         filtered_occurrence_graph = filterGraph()
         all_occurrence_graphs[row['PMID']] = filtered_occurrence_graph
 
+    print("Avrg_nodes per article",avrg_nodes//num_art)
+
     with open("../../Data/Output/Abstract2Graph_Co_Occurrence.json", "w") as fp:
         json.dump(all_occurrence_graphs,fp,indent = 2) 
-    
 
 
 

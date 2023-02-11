@@ -4,3 +4,9 @@ dependencies:
   - pandas
   - nltk
   - SciPy
+  - networkx
+  - pip:
+      - "mowl-borg"
+      - "matplotlib"
+      - "networkx"
+      # - "pickle-mixin"
