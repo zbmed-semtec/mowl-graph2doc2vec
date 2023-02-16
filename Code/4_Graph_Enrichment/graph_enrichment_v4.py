@@ -1,6 +1,6 @@
 """
 Here we take into account the weighted nodes of the based on the amount of time they were visited.
-Network_x library
+We also use the Network_x library to speed up the process.
 """
 import timeit
 import json
@@ -121,16 +121,16 @@ def main():
         enriched_Gs[k] = enrich_graph(small_Gs[k])
         if("owl#Thing" in enriched_Gs[k]): enriched_Gs[k].remove("owl#Thing")
         avrg += len(enriched_Gs[k])
-        i+=1
-        if(i==10):break
+        # i+=1
+        # if(i==1):break
 
-    #print(avrg//len(enriched_Gs))
+    print(avrg//len(enriched_Gs))
     
     with open("../../Data/Output/Enriched_Graphs_v3_nx.json", "w") as fp:
         json.dump(enriched_Gs,fp,indent = 2) 
 
 
-#Execution time 33 seconds
+
 t_0 = timeit.default_timer()
 main()
 t_1 = timeit.default_timer()

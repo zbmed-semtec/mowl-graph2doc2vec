@@ -1,3 +1,7 @@
+## General flow
+
+
+
 ## Instructions to run the algorithms.
 
 
