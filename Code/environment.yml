@@ -10,4 +10,5 @@ dependencies:
       - "matplotlib"
       - "networkx"
       - "biopython"
+      - "seaborn"
       # - "pickle-mixin"
