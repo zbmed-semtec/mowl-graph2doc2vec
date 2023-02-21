@@ -30,12 +30,12 @@ def checkTypeofRelations(graph):
 
 
 def main():
-    with open('../../Data/Output/Abstract2Graph_Co_Occurrence_no_text_links.json') as f:
+    with open('./Data/Output/Abstract2Graph_Co_Occurrence.json') as f:
         Abstract_Graph_raw = json.load(f)
     
     Onto_graph_raw = []
     
-    with (open("../../Data/Input/Graph_mesh_OWL2VEC.pkl", "rb")) as openfile:
+    with (open("./Data/Input/Graph_mesh_OWL2VEC.pkl", "rb")) as openfile:
         while True:
             try:
                 Onto_graph_raw.append(pickle.load(openfile))
