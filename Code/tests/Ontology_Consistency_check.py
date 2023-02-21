@@ -13,6 +13,7 @@ enriched_Gs = {}
 
 augmented_Gs = []
 
+
 def checkTypeofRelations(graph):
     relations = {}
     for section in graph:
