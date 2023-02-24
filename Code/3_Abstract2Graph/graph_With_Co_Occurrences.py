@@ -14,7 +14,6 @@ import json
 """
 occurrence_graph = {}
 unique_nodes = set()
-
 """
 
 "Pub_med_id" : occurrence_graph

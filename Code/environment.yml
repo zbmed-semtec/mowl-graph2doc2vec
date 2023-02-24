@@ -9,4 +9,6 @@ dependencies:
       - "mowl-borg"
       - "matplotlib"
       - "networkx"
+      - "biopython"
+      - "seaborn"
       # - "pickle-mixin"

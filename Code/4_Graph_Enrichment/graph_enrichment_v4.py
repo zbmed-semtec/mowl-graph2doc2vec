@@ -1,6 +1,6 @@
 """
 Here we take into account the weighted nodes of the based on the amount of time they were visited.
-Network_x library
+We also use the Network_x library to speed up the process.
 """
 import timeit
 import json
@@ -71,8 +71,9 @@ def format_Small(raw_graph):
                 
         graphs[k] = temp_G
     
-    with open("../../Data/Output/Lost_terms.json", "w") as fp:
-        json.dump([x for x in lost],fp,indent = 2)
+    # with open("../../Data/Output/Lost_terms.json", "w") as fp:
+    #     json.dump([x for x in lost],fp,indent = 2)
+    
     return graphs
 
 def enrich_graph(graph):
@@ -82,6 +83,7 @@ def enrich_graph(graph):
         source = edge[0]
         dest = edge[1]
         list = getShortestDistance(big_G, source, dest, idx_ref+1)
+        print([id2idx[x] for x in list])
         for node in list:
             if(node in new_nodes):
                 new_nodes[node] += 1
@@ -92,11 +94,11 @@ def enrich_graph(graph):
     
 
 def main():
-    with open('../../Data/Output/Abstract2Graph_Co_Occurrence_no_text_links.json') as f:
+    with open('./Data/Output/Abstract2Graph_Co_Occurrence.json') as f:
         Abstract_Graph_raw = json.load(f)
 
     Onto_graph_raw = []
-    with (open("../../Data/Input/Graph_mesh_OWL2VEC.pkl", "rb")) as openfile:
+    with (open("./Data/Input/Graph_mesh_OWL2VEC.pkl", "rb")) as openfile:
         while True:
             try:
                 Onto_graph_raw.append(pickle.load(openfile))
@@ -122,15 +124,16 @@ def main():
         if("owl#Thing" in enriched_Gs[k]): enriched_Gs[k].remove("owl#Thing")
         avrg += len(enriched_Gs[k])
         i+=1
-        if(i==10):break
+        if(i==1):break
 
-    #print(avrg//len(enriched_Gs))
+    print(avrg//len(enriched_Gs))
     
-    with open("../../Data/Output/Enriched_Graphs_v3_nx.json", "w") as fp:
-        json.dump(enriched_Gs,fp,indent = 2) 
+    if(i==0):
+        with open("../../Data/Output/Enriched_Graphs_v4.json", "w") as fp:
+            json.dump(enriched_Gs,fp,indent = 2) 
 
 
-#Execution time 33 seconds
+
 t_0 = timeit.default_timer()
 main()
 t_1 = timeit.default_timer()
