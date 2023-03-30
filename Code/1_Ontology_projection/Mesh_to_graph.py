@@ -9,7 +9,7 @@ from mowl.projection import DL2VecProjector
 from mowl.projection import OWL2VecStarProjector
 
 # Data: mesh ontologies from https://bioportal.bioontology.org/ontologies/MESH?p=summary
-dataset = PathDataset('Data/Input/MESH.ttl')
+dataset = PathDataset('../../Data/Input/1/MESH.ttl')
 
 # Setting parameters of the OWL2VEC projector
 projector = OWL2VecStarProjector(
@@ -21,7 +21,7 @@ projector = OWL2VecStarProjector(
 edges = projector.project(dataset.ontology)
 
 # Save the graph in a pickle variable
-with open('Graph_mesh.pkl', 'wb') as file:
+with open('../../Data/Output/1/Graph_mesh.pkl', 'wb') as file:
     # A new file will be created
     pickle.dump(edges, file)
 
