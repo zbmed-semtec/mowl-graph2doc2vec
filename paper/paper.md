@@ -6,7 +6,7 @@ tags:
   - Ontology background knowledge
   - BioHackathon MENA
 authors:
-  - name: Nelson Quiñones
+  - name: Nelson David Quiñones
     orcid: 0000-0002-5037-0443
     affiliation: 
     - 1
