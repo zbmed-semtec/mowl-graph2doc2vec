@@ -27,7 +27,6 @@ def filterGraph():
     new_graph_sz = len(unique_nodes) + (15*len(unique_nodes))//100
     sorted_graph = {k: v for k, v in sorted(occurrence_graph.items(), key=lambda item: -item[1])}
     new_graph = {}
-    #print("LOL: ", sorted_graph["MeSHD007484 MeSHD014186"])
     for k in sorted_graph:
        new_graph[k] = sorted_graph[k]
        new_graph_sz-=1

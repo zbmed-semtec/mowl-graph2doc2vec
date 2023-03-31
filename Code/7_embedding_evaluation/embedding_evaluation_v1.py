@@ -59,6 +59,8 @@ def main():
     corr1, _ = pearsonr(relish_pairs['Cos Sim unique'], relish_pairs['Cos Sim enriched'])
     corr2, _ = pearsonr(relish_pairs['Cos Sim unique'], results_baseline)
     corr3, _ = pearsonr(relish_pairs['Cos Sim enriched'], results_baseline)
-    print(corr1,corr2,corr3)
+    print("Unique vs Enriched: ", corr1)
+    print("Unique vs Baseline: ", corr2)
+    print("Enriched vs Baseline: ", corr3)
 
 main()
