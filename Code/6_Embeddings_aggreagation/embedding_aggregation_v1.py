@@ -1,7 +1,9 @@
 """
-Created on Fri Feb 10 16:25:45 2023
+    Created on Fri Feb 10 16:25:45 2023
 
-@author: mariacastillo
+    @author: mariacastillo
+
+    This script contains the first version of the embedding aggregation techniques and evaluation.  
 """
 from scipy import spatial
 import json

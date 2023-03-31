@@ -85,7 +85,7 @@ def enrich_graph(graph):
         source = edge[0]
         dest = edge[1]
         list = getShortestDistance(big_G, source, dest, idx_ref+1)
-        print([id2idx[x] for x in list])
+        #print([id2idx[x] for x in list])
         for node in list:
             if(node in new_nodes):
                 new_nodes[node] += 1
