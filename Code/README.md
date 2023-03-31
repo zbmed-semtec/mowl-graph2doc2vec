@@ -7,7 +7,7 @@ The application is divided in steps to transform the data, each step can be obse
 Each step has a folder inside the Code folder. Inside of each folder multiple implementations of the transformation can be found, each implementation has a version to represent improvements that have been done.
 
 The 5th step is not found in the diagram because this step is part of another approach. 
-The 8th step is not found in the diagram because its an analysis to improve upon a future approach.
+The 8th step is not found in the diagram because its an analysis to improve upon a future approaches.
 
 ## Instructions to run the algorithms.
 

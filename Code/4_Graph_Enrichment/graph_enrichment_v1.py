@@ -1,8 +1,10 @@
 """
-Here we are creating new graphs by doing traversals through the MeSH ontology projected graph, 
-the traversal consists of finding the smallest path between 2 nodes that have an edge 
-in the initial graph that represents an abstract, we collect all the unique nodes that appear in all the path traversals
-and that  basically represents our new graph for an abstract.
+    @author: bit2424
+    
+    Here we are creating new graphs by doing traversals through the MeSH ontology projected graph, 
+    the traversal consists of finding the smallest path between 2 nodes that have an edge 
+    in the initial graph that represents an abstract, we collect all the unique nodes that appear in all the path traversals
+    and that  basically represents our new graph for an abstract.
 """
  
 
@@ -115,13 +117,7 @@ def getShortestDistance(adj, s, dest, v):
     while (pred[crawl] != -1):
         path.append(pred[crawl])  
         crawl = pred[crawl]  
-    
 
-    # distance from source is in distance array
-    # print("Shortest path length is : " + str(dist[dest]), end = '')
-
-    # # printing path from source to destination
-    # print("\nPath is : : ")
     
     out_path = [] 
     
@@ -148,14 +144,13 @@ def format_Small(raw_graph):
                 
         graphs[k] = temp_G
     
-    with open("../../Data/Output/Lost_terms.json", "w") as fp:
+    with open("./Data/Output/4/Lost_terms_v1.json", "w") as fp:
         json.dump([x for x in lost],fp,indent = 2)
     return graphs
 
 def enrich_graph(graph):
     new_node_list = set()
     
-    #print(graph)
     
     for edge in graph:
         source = edge[0]
@@ -168,22 +163,19 @@ def enrich_graph(graph):
     
 
 def main():
-    with open('../../Data/Output/Abstract2Graph_Co_Occurrence_no_text_links.json') as f:
+    with open('./Data/Output/3/Abstract2Graph_Co_Occurrence.json') as f:
         Abstract_Graph_raw = json.load(f)
     
-    # with open('../../Data/Input/Graph_mesh.pkl', 'rb') as f:
+    # with open('./Data/Input/Graph_mesh.pkl', 'rb') as f:
     #     Onto_graph_raw = pickle.load(f)
 
     Onto_graph_raw = []
-    with (open("../../Data/Input/Graph_mesh_OWL2VEC.pkl", "rb")) as openfile:
+    with (open("./Data/Output/1/Graph_mesh_OWL2VEC.pkl", "rb")) as openfile:
         while True:
             try:
                 Onto_graph_raw.append(pickle.load(openfile))
             except EOFError:
                 break
-
-    
-    #checkTypeofRelations(Onto_graph_raw)
     
     #Is a DAG
     global big_G
@@ -202,13 +194,15 @@ def main():
         enriched_Gs[k] = enrich_graph(small_Gs[k])
         if("owl#Thing" in enriched_Gs[k]): enriched_Gs[k].remove("owl#Thing")
         avrg += len(enriched_Gs[k])
-        i+=1
-        if(i==100):break
+        
+        ########################### This condition is implemented to do efficient testing of the correctness of the code ###########################
+        # i+=1
+        # if(i==10):break
 
     #print(enriched_Gs)
     print(avrg//len(enriched_Gs))
     
-    with open("../../Data/Output/Enriched_Graphs_v1.json", "w") as fp:
+    with open("./Data/Output/4/Enriched_Graphs_v1.json", "w") as fp:
         json.dump(enriched_Gs,fp,indent = 2) 
     
 

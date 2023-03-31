@@ -1,5 +1,6 @@
 """
-    The algorithm generates a list with the unique MeSH identified in the abstract.
+    @author: bit2424
+    The algorithm generates a list with the unique MeSH identified in each document abstract.
 """
 import pandas as pd
 import re
@@ -24,7 +25,7 @@ def count(sentence):
 
 
 def main():
-    df = pd.read_table('./Data/Input/RELISH_documents_20220628_ann.tsv')
+    df = pd.read_table('./Data/Input/3/RELISH_documents_20220628_ann.tsv')
     df.columns = ['PMID', 'title', 'abstract']
     avrg_nodes = 0
     num_art = 0
@@ -44,7 +45,7 @@ def main():
 
     print("Avrg_nodes per article",avrg_nodes//num_art)
 
-    with open("./Data/Output/Abstract2Graph_uniqueTerms.json", "w") as fp:
+    with open("./Data/Output/3/Abstract2Graph_uniqueTerms.json", "w") as fp:
         json.dump(all_occurrence_graphs,fp,indent = 2) 
 
 

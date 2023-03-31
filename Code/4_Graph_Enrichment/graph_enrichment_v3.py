@@ -1,5 +1,6 @@
 """
-Here we take into account the weighted nodes of the based on the amount of time they were visited.
+    @author: bit2424
+    Here we take into account the weighted nodes. This weight is assigned based on the amount of time they were visited.
 """
 import timeit
 import json
@@ -152,14 +153,12 @@ def format_Small(raw_graph):
                 
         graphs[k] = temp_G
     
-    with open("../../Data/Output/Lost_terms.json", "w") as fp:
+    with open("./Data/Output/4/Lost_terms_v3.json", "w") as fp:
         json.dump([x for x in lost],fp,indent = 2)
     return graphs
 
 def enrich_graph(graph):
     new_nodes = {}
-    
-    #print(graph)
     
     for edge in graph:
         source = edge[0]
@@ -175,22 +174,17 @@ def enrich_graph(graph):
     
 
 def main():
-    with open('../../Data/Output/Abstract2Graph_Co_Occurrence_no_text_links.json') as f:
+    with open('./Data/Output/3/Abstract2Graph_Co_Occurrence.json') as f:
         Abstract_Graph_raw = json.load(f)
-    
-    # with open('../../Data/Input/Graph_mesh.pkl', 'rb') as f:
-    #     Onto_graph_raw = pickle.load(f)
 
     Onto_graph_raw = []
-    with (open("../../Data/Input/Graph_mesh_OWL2VEC.pkl", "rb")) as openfile:
+    with (open("./Data/Output/1/Graph_mesh_OWL2VEC.pkl", "rb")) as openfile:
         while True:
             try:
                 Onto_graph_raw.append(pickle.load(openfile))
             except EOFError:
                 break
 
-    
-    #checkTypeofRelations(Onto_graph_raw)
     
     #Is a DAG
     global big_G
@@ -209,13 +203,14 @@ def main():
         enriched_Gs[k] = enrich_graph(small_Gs[k])
         if("owl#Thing" in enriched_Gs[k]): enriched_Gs[k].remove("owl#Thing")
         avrg += len(enriched_Gs[k])
+        ########################### This condition is implemented to do efficient testing of the correctness of the code ###########################
         i+=1
-        if(i==1000):break
+        if(i==10):break
 
     #print(enriched_Gs)
     print(avrg//len(enriched_Gs))
     
-    with open("../../Data/Output/Enriched_Graphs_v3.json", "w") as fp:
+    with open("./Data/Output/4/Enriched_Graphs_v3.json", "w") as fp:
         json.dump(enriched_Gs,fp,indent = 2) 
     
 t_0 = timeit.default_timer()

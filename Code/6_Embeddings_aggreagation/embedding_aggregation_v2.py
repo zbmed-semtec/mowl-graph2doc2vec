@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Created on Mar 2 9:30:27 2023
 
@@ -53,11 +51,11 @@ def calculate_cos(relish_pairs,average_abs):
 def main():
 
     # Load embedings from mesh graph 
-    with open('./Data/Input/Embedings_mesh.pkl', 'rb') as file:
+    with open('./Data/Output/2/Embeddings_mesh.pkl', 'rb') as file:
         embeddings_mesh = pickle.load(file)
 
     # Load dictionaries of mesh terms
-    f=open('./Data/Output/Abstract2Graph_uniqueTerms.json')
+    f=open('./Data/Output/3/Abstract2Graph_uniqueTerms.json')
     array_object = json.load(f)
     array_object={k: v for k, v in array_object.items() if v}     
 
