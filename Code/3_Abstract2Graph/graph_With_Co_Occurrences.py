@@ -1,5 +1,7 @@
 """
-    The algorithm generates links between 2 MESH concepts in a paragraph.
+    @author: bit2424
+    
+    The script generates links between 2 MESH concepts in a paragraph.
     The links are based on how many times the 2 terms appear in a sentence. 
     Then an edge between the x% of the most co occurrent pairs is made.
 """
@@ -25,7 +27,6 @@ def filterGraph():
     new_graph_sz = len(unique_nodes) + (15*len(unique_nodes))//100
     sorted_graph = {k: v for k, v in sorted(occurrence_graph.items(), key=lambda item: -item[1])}
     new_graph = {}
-    #print("LOL: ", sorted_graph["MeSHD007484 MeSHD014186"])
     for k in sorted_graph:
        new_graph[k] = sorted_graph[k]
        new_graph_sz-=1
@@ -60,7 +61,7 @@ def count(sentence):
 
 
 def main():
-    df = pd.read_table('../../Data/Input/RELISH_documents_20220628_ann.tsv')
+    df = pd.read_table('./Data/Input/3/RELISH_documents_20220628_ann.tsv')
     df.columns = ['PMID', 'title', 'abstract']
     avrg_nodes = 0
     num_art = 0
@@ -84,7 +85,7 @@ def main():
 
     print("Avrg_nodes per article",avrg_nodes//num_art)
 
-    with open("../../Data/Output/Abstract2Graph_Co_Occurrence.json", "w") as fp:
+    with open("./Data/Output/3/Abstract2Graph_Co_Occurrence.json", "w") as fp:
         json.dump(all_occurrence_graphs,fp,indent = 2) 
 
 

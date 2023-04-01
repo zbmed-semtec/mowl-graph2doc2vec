@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-Created on Fri Feb 10 16:25:45 2023
+    Created on Fri Feb 10 16:25:45 2023
 
-@author: mariacastillo
+    @author: mariacastillo
+
+    This script contains the first version of the embedding aggregation techniques and evaluation.  
 """
 from scipy import spatial
 import json
@@ -13,6 +13,7 @@ import pickle
 # Load dictionaries of mesh terms
 # Load embedings from mesh graph 
 f=open('mesh_dict_after_match_PMID.json')
+
 with open('Embedings_mesh.pkl', 'rb') as file:
     Embedings_mesh = pickle.load(file)
 
